@@ -337,7 +337,7 @@ with your production backend URL.
 - 🎓 M.Sc. Computer Science
 - 💻 Java | Spring Boot | React.js | MySQL
 - 🌐 GitHub: https://github.com/vivek5255-cell
-- 💼 LinkedIn: https://www.linkedin.com/in/vivekkumavat07
+- 💼 LinkedIn: https://www.linkedin.com/in/vivek-kumavat/
 
 ---
 
@@ -347,6 +347,3 @@ This project was developed as part of my learning journey in Java Full Stack Dev
 
 ---
 
-# 📄 License
-
-This project is licensed under the **MIT License**.
