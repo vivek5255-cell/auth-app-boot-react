@@ -1,289 +1,352 @@
 # 🔐 Full Stack Authentication App — React + Vite + Spring Boot
 
-A complete **authentication system** built using **React (Vite)** on the frontend and **Spring Boot** on the backend.  
-Supports **JWT-based authentication** with **username/password login**, as well as **Google** and **GitHub OAuth2 login**.
+A modern full-stack authentication system built using **React (Vite)** and **Spring Boot**. The application supports secure user authentication using **JWT**, **Google OAuth2**, and **GitHub OAuth2**, providing a scalable foundation for modern web applications.
 
 ---
 
-## 🧱 Tech Stack
+## 🚀 Features
 
-### 🖥️ Frontend
+- User Registration & Login
+- JWT Authentication (Access & Refresh Tokens)
+- Google OAuth2 Login
+- GitHub OAuth2 Login
+- Role-Based Authentication
+- Secure REST APIs
+- Spring Security Integration
+- Swagger/OpenAPI Documentation
+- Responsive React UI
+- Docker Support
+
+---
+
+# 🛠️ Tech Stack
+
+## 🖥️ Frontend
 
 - React (Vite)
+- TypeScript
 - Tailwind CSS
 - Axios
 - React Router DOM
-- ShadCN UI (optional)
+- ShadCN UI
 
-### ⚙️ Backend
+## ⚙️ Backend
 
+- Java 21
 - Spring Boot 3.x
 - Spring Security 6.x
-- Spring Data JPA (MySQL)
-- OAuth2 Client (Google, GitHub)
+- Spring Data JPA
+- Hibernate
+- MySQL
 - JWT Authentication
-- Lombok + HikariCP
+- OAuth2 (Google & GitHub)
+- Maven
+- Lombok
+- HikariCP
+- Swagger (OpenAPI)
 
 ---
 
-## Screenshots
+# 📸 Screenshots
 
-### Home page
+### Home Page
 
 ![Homepage](./screenshots/sc1.png)
 
-### Login page
+### Login Page
 
-![Login Page](./screenshots/sc2.png)
+![Login](./screenshots/sc2.png)
 
-### Login page with error
+### Login Validation
 
-![Login Page](./screenshots/sc3.png)
+![Login Error](./screenshots/sc3.png)
 
-### Register page
+### Register Page
 
-![Register Page](./screenshots/sc4.png)
+![Register](./screenshots/sc4.png)
 
 ### Dashboard
 
 ![Dashboard](./screenshots/sc5.png)
 
-## 📁 Project Structure
+---
 
-```
+# 📁 Project Structure
+
+```text
 auth-app-boot-react/
 │
-├── backend/                  # Spring Boot Backend
+├── auth-backend/
 │   ├── src/
 │   ├── pom.xml
+│   ├── Dockerfile
 │   └── application.yml
 │
-├── frontend/                 # React + Vite Frontend
+├── auth-front/
 │   ├── src/
 │   ├── package.json
-│   └── vite.config.js
+│   ├── vite.config.ts
+│   └── Dockerfile
 │
+├── screenshots/
 └── README.md
 ```
 
 ---
 
-## ⚙️ Backend Setup (Spring Boot)
+# ⚙️ Backend Setup
 
-### 🧩 Prerequisites
+## Prerequisites
 
-- Java 17+
+- Java 21
 - Maven 3.9+
-- MySQL (or compatible database)
+- MySQL
 - Git
 
-### 🧰 Steps to Run Backend
+## Clone Repository
 
-1. Navigate to the backend folder:
+```bash
+git clone https://github.com/vivek5255-cell/auth-app-boot-react.git
+cd auth-app-boot-react
+```
 
-   ```bash
-   cd backend
-   ```
+## Create Database
 
-2. Create a new database:
+```sql
+CREATE DATABASE auth_app;
+```
 
-   ```sql
-   CREATE DATABASE auth_app;
-   ```
+## Configure Database
 
-3. Configure `application.yml`:
+Update
 
-   ```yaml
-   server:
-     port: 8081
+```
+auth-backend/src/main/resources/application.yml
+```
 
-   spring:
-     application:
-       name: auth-backend
-     datasource:
-       url: jdbc:mysql://localhost:3306/auth_app
-       username: root
-       password: root
-     jpa:
-       hibernate:
-         ddl-auto: update
-       show-sql: true
-       properties:
-         hibernate:
-           dialect: org.hibernate.dialect.MySQL8Dialect
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth_app
+    username: your_username
+    password: your_password
+```
 
-   security:
-     jwt:
-       secret: ${JWT_SECRET}
-       issuer: auth-backend
-       access-ttl-seconds: 900
-       refresh-ttl-seconds: 1209600
-       refresh-cookie-name: refresh_token
-       cookie-secure: false
-       cookie-same-site: Lax
+## Configure Environment Variables
 
-     oauth2:
-       client:
-         registration:
-           google:
-             client-id: ${GOOGLE_CLIENT_ID}
-             client-secret: ${GOOGLE_CLIENT_SECRET}
-             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-             scope: [email, profile]
-           github:
-             client-id: ${GITHUB_CLIENT_ID}
-             client-secret: ${GITHUB_CLIENT_SECRET}
-             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-             scope: [user:email, read:user]
-   ```
+```text
+JWT_SECRET=your-secret-key
 
-4. Set environment variables:
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
 
-   ```bash
-   export JWT_SECRET="your-random-long-secret"
-   export GOOGLE_CLIENT_ID="your-google-client-id"
-   export GOOGLE_CLIENT_SECRET="your-google-client-secret"
-   export GITHUB_CLIENT_ID="your-github-client-id"
-   export GITHUB_CLIENT_SECRET="your-github-client-secret"
-   ```
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+```
 
-5. Run the Spring Boot app:
-   ```bash
-   mvn spring-boot:run
-   ```
+## Run Backend
 
-📍 Backend runs on **http://localhost:8081**
+```bash
+cd auth-backend
+
+mvn clean install
+
+mvn spring-boot:run
+```
+
+Backend runs at
+
+```
+http://localhost:8083
+```
+
+Swagger UI
+
+```
+http://localhost:8083/swagger-ui/index.html
+```
 
 ---
 
-## 💻 Frontend Setup (React + Vite)
+# 💻 Frontend Setup
 
-### 🧩 Prerequisites
+```bash
+cd auth-front
 
-- Node.js 18+
-- npm / yarn / pnpm
+npm install
+```
 
-### ⚙️ Steps to Run Frontend
+Create
 
-1. Navigate to frontend directory:
+```
+.env
+```
 
-   ```bash
-   cd frontend
-   ```
+```env
+VITE_BACKEND_URL=http://localhost:8083
+```
 
-2. Install dependencies:
+Run
 
-   ```bash
-   npm install
-   ```
+```bash
+npm run dev
+```
 
-3. Create `.env` file inside `frontend/`:
+Frontend
 
-   ```bash
-   VITE_BACKEND_URL=http://localhost:8081
-   ```
-
-4. Start development server:
-   ```bash
-   npm run dev
-   ```
-
-📍 Frontend runs on **http://localhost:5173**
+```
+http://localhost:5173
+```
 
 ---
 
-## 🔗 Authentication Flow
+# 🔐 Authentication Flow
 
-1. **User Login (Email/Password):**
+### Email & Password Authentication
 
-   - User logs in via frontend.
-   - Spring Boot backend verifies credentials.
-   - Returns JWT tokens (access + refresh).
-
-2. **OAuth Login (Google / GitHub):**
-
-   - Redirects to provider login page.
-   - On success, backend issues JWTs.
-   - React app stores tokens securely (cookie / memory).
-
-3. **Token Refresh:**
-
-   - When access token expires, refresh token is used silently to generate a new one.
-
-4. **Logout:**
-   - Cookies/tokens are cleared; session invalidated.
-
----
-
-## 🔑 Example API Endpoints
-
-| Method | Endpoint                       | Description                    |
-| ------ | ------------------------------ | ------------------------------ |
-| `POST` | `/api/auth/login`              | Login with username & password |
-| `POST` | `/api/auth/register`           | Register a new user            |
-| `GET`  | `/api/auth/me`                 | Get current logged-in user     |
-| `GET`  | `/oauth2/authorization/google` | Redirect to Google login       |
-| `GET`  | `/oauth2/authorization/github` | Redirect to GitHub login       |
-| `POST` | `/api/auth/refresh`            | Refresh access token           |
-| `POST` | `/api/auth/logout`             | Logout and clear tokens        |
+```
+User
+   │
+   ▼
+React Frontend
+   │
+   ▼
+Spring Boot REST API
+   │
+   ▼
+Spring Security
+   │
+   ▼
+JWT Generated
+   │
+   ▼
+Authenticated User
+```
 
 ---
 
-## 🧠 Environment Variables Summary
+### OAuth2 Authentication
 
-| Variable               | Description              | Example                            |
-| ---------------------- | ------------------------ | ---------------------------------- |
-| `JWT_SECRET`           | Secret key for JWT       | `random-long-secret`               |
-| `GOOGLE_CLIENT_ID`     | Google OAuth client ID   | `xxxxx.apps.googleusercontent.com` |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth secret      | `xxxxxx`                           |
-| `GITHUB_CLIENT_ID`     | GitHub OAuth client ID   | `ghp_xxxxx`                        |
-| `GITHUB_CLIENT_SECRET` | GitHub OAuth secret      | `ghs_xxxxx`                        |
-| `VITE_BACKEND_URL`     | Backend URL for frontend | `http://localhost:8081`            |
+```
+React Application
 
----
+↓
 
-## 🧰 Common Commands
+Google / GitHub
 
-| Task            | Command                         |
-| --------------- | ------------------------------- |
-| Run backend     | `mvn spring-boot:run`           |
-| Run frontend    | `npm run dev`                   |
-| Build frontend  | `npm run build`                 |
-| Package backend | `mvn clean package`             |
-| Run backend JAR | `java -jar target/auth-app.jar` |
+↓
 
----
+Spring Security OAuth2
 
-## 🧩 Deployment Tips
+↓
 
-- Build frontend for production:
-  ```bash
-  npm run build
-  ```
-- Copy `dist/` files to `backend/src/main/resources/static` for single-server deployment.
-- For separate deployment:
-  - Host frontend on Netlify/Vercel.
-  - Host backend on Render/AWS/DigitalOcean.
-  - Update `VITE_BACKEND_URL` to production backend URL.
-- Use HTTPS and set cookies with `secure` and `SameSite=Lax`.
+JWT Generated
+
+↓
+
+Dashboard
+```
 
 ---
 
-## 🧑‍💻 Author
+# 📌 REST API Endpoints
 
-**Learn Code With Durgesh**  
-Founder — Substring Technologies Pvt. Ltd.  
-📺 [YouTube: LearnCodeWithDurgesh](https://www.youtube.com/@LearnCodeWithDurgesh)  
-🌐 [Website: substring.tech](https://learncodewithdurgesh.com)  
-📬 [Telegram: @learncodewithdurgesh](https://t.me/learncodewithdurgesh)
-
----
-
-## 🪪 License
-
-This project is licensed under the **MIT License**.  
-You are free to use, modify, and distribute it for learning and educational purposes.
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/auth/register` | Register User |
+| POST | `/api/auth/login` | User Login |
+| GET | `/api/auth/me` | Get Logged-in User |
+| POST | `/api/auth/refresh` | Refresh JWT Token |
+| POST | `/api/auth/logout` | Logout |
+| GET | `/oauth2/authorization/google` | Google Login |
+| GET | `/oauth2/authorization/github` | GitHub Login |
 
 ---
 
-⭐ **If this project helped you, consider giving it a star!**
+# 🐳 Docker
+
+Build Docker Image
+
+```bash
+docker build -t auth-backend .
+```
+
+Run Container
+
+```bash
+docker run -p 8083:8083 auth-backend
+```
+
+---
+
+# 📦 Common Commands
+
+| Task | Command |
+|------|---------|
+| Run Backend | `mvn spring-boot:run` |
+| Run Frontend | `npm run dev` |
+| Package Backend | `mvn clean package` |
+| Build Frontend | `npm run build` |
+| Run JAR | `java -jar target/auth-app.jar` |
+
+---
+
+# 🚀 Deployment
+
+Frontend
+
+- Netlify
+- Vercel
+
+Backend
+
+- Render
+- Railway
+- AWS EC2
+- DigitalOcean
+
+Remember to update
+
+```
+VITE_BACKEND_URL
+```
+
+with your production backend URL.
+
+---
+
+# 🌱 Future Improvements
+
+- Email Verification
+- Forgot Password
+- Password Reset
+- Two-Factor Authentication (2FA)
+- Redis Token Storage
+- Docker Compose
+- CI/CD Pipeline
+- Kubernetes Deployment
+
+---
+
+# 👨‍💻 Author
+
+## Vivek Kumavat
+
+**Java Full Stack Developer**
+
+- 🎓 M.Sc. Computer Science
+- 💻 Java | Spring Boot | React.js | MySQL
+- 🌐 GitHub: https://github.com/vivek5255-cell
+- 💼 LinkedIn: https://www.linkedin.com/in/vivekkumavat07
+
+---
+
+# 🙏 Acknowledgements
+
+This project was developed as part of my learning journey in Java Full Stack Development. I would like to acknowledge the educational resources that helped me understand Spring Boot, Spring Security, JWT Authentication, and OAuth2 concepts.
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
