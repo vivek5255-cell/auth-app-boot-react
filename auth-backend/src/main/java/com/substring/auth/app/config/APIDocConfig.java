@@ -11,37 +11,26 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "Auth Application build by Durgesh Tiwari.",
-                description = "Generic auth app that can be used with any application.",
+                title = "Authentication Management API",
+                description = "Secure authentication system built using Spring Boot, JWT, OAuth2, and MySQL.",
+                summary = "Authentication APIs for user registration, login, JWT authentication, and OAuth2 login.",
+                version = "1.0.0",
                 contact = @Contact(
-                        name = "Durgesh Kumar Tiwari",
-                        url = "https://www.substringtechnologies.com/",
-                        email = "support@substringtechnologies.com"
-                ),
-                version = "1.0",
-                summary = "This app is very useful if you dont want create auth app from scratch."
-
-
-
-        )
-        ,
-        security = {
-                @SecurityRequirement(
-                        name="bearerAuth"
+                        name = "Vivek Kumavat",
+                        url = "https://github.com/your-github-username",
+                        email = "kumavatvivek0704@gmail.com"
                 )
+        ),
+        security = {
+                @SecurityRequirement(name = "bearerAuth")
         }
-
-
 )
 
 @SecurityScheme(
         name = "bearerAuth",
         type = SecuritySchemeType.HTTP,
-        scheme = "bearer", //Authorization: Bearer htokenaswga,
+        scheme = "bearer",
         bearerFormat = "JWT"
-
 )
 public class APIDocConfig {
-
-
 }
